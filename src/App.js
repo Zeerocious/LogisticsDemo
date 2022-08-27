@@ -1,34 +1,25 @@
 import React from "react";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import { Box, TextField, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import Admin from "./Admin";
 import Header from "./Header";
 import NotFound from "./NotFound";
-import User from "./User";
+import Shipping from "./Shipping";
 
 function App() {
   return (
     <BrowserRouter>
-    <Parent>
-      <Routes>
+      <Parent>
+        <Routes>
           <Route path="*" element={<NotFound />} />
+          <Route exact path="/" element={<Header />} />
           <Route
             exact
-            path="/"
+            path="/shipping"
             element={
               <>
                 <Header />
-                <User />
-              </>
-            }
-          />
-          <Route
-            exact
-            path="/user"
-            element={
-              <>
-                <Header />
-                <User />
+                <Shipping />
               </>
             }
           />
@@ -43,7 +34,7 @@ function App() {
             }
           />
         </Routes>
-    </Parent>
+      </Parent>
     </BrowserRouter>
   );
 }

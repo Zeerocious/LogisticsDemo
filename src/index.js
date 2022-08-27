@@ -4,7 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider, createTheme,} from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
-
+import "simplebar/dist/simplebar.min.css";
 
 let theme = createTheme({
   palette: {

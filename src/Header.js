@@ -14,7 +14,7 @@ export default function Header() {
       >
         <Typography variant="h2">SHIPPING COMPANY</Typography>
         <Box sx={{ display: "flex" }}>
-          <Button href="/user" sx={{ mr: 1, backgroundColor: "#345522" }} size="large">
+          <Button href="/shipping" sx={{ mr: 1, backgroundColor: "#345522" }} size="large">
             <Typography sx={{color: "tertiary.main"}} variant="h3">
               Ship a Package
             </Typography>

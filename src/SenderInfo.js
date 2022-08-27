@@ -1,6 +1,7 @@
-import { Box, TextField} from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
+import React from "react";
 
-export default function User() {
+export default function SenderInfo() {
   return (
     <Box
       sx={{
@@ -20,6 +21,9 @@ export default function User() {
           p: 2,
         }}
       >
+        <Typography sx={{ m: 1 }} variant="h5">
+          SENDER INFO
+        </Typography>
         <Box
           sx={{
             display: "flex",
