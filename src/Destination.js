@@ -57,7 +57,7 @@ export default function Destination() {
     setContacts((contacts) => contacts.filter((_, i) => i !== index));
   };
   return (
-    <SimpleBar>
+    
       <Box
         sx={{
           display: "flex",
@@ -207,6 +207,5 @@ export default function Destination() {
           </Box>
         </Box>
       </Box>
-    </SimpleBar>
   );
 }
