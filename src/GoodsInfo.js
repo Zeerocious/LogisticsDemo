@@ -1,16 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
-import SimpleBar from "simplebar-react";
 import { InputAdornment, Button, Box, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
-export default function Destination() {
-  const [good, setGood] = useState({
-    type: "",
-    value: "",
-    weight: "",
-    insurance: "",
-  });
-  const [goods, setGoods] = useState([]);
+export default function Destination(props) {
+  const {
+    good,
+    setGood,
+    goods,
+    setGoods
+  } = props;
 
   const addGood = (e) => {
     e.preventDefault();
@@ -72,6 +70,7 @@ export default function Destination() {
             sx={{ m: 1 }}
             required
             label="Type"
+            defaultValue={good.type}
           />
           <Box
             sx={{
@@ -93,6 +92,7 @@ export default function Destination() {
                 }))
               }
               required
+              defaultValue={good.value}
             />
             <TextField
               sx={{ m: 1 }}
@@ -109,6 +109,7 @@ export default function Destination() {
                 }))
               }
               required
+              defaultValue={good.weight}
             />
           </Box>
           <Button onClick={addGood}>Add Item</Button>
@@ -126,8 +127,8 @@ export default function Destination() {
                 <Typography>
                   insurance: ${(good.value * 0.08).toFixed(2)}
                 </Typography>
-                <Button onClick={() => deleteGood(index)}>
-                  Delete Receiver
+                <Button onClick={() => deleteGood(index)} color={"error"}>
+                  Delete Good
                 </Button>
               </Box>
             );

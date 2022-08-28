@@ -102,7 +102,7 @@ export default function Destination(props) {
             defaultValue={state}
           />
         </Box>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{display: "flex", flexDirection: "column" }}>
           <Typography sx={{ m: 1 }} variant="h7">
             Add Receiver
           </Typography>
@@ -201,16 +201,16 @@ export default function Destination(props) {
               defaultValue={contact.phoneNumber}
             />
           </Box>
-          <Button onClick={addContact}>Add Receiver</Button>
+          <Button onClick={addContact} variant="contained" >Add Receiver</Button>
         </Box>
-        <Typography sx={{ fontFamily: "roboto" }} variant="h5">
-          Receivers
+        <Typography sx={{ mt:5, fontFamily: "roboto" }} variant="h5">
+          Receiver
         </Typography>
 
         <Box>
           {contacts.map((contact, index) => {
             return (
-              <Box key={contact.id}>
+              <Box key={contact.id} sx={{mt: 4}}>
                 <Typography>
                   Name: {contact.firstName} {contact.lastName}
                 </Typography>
@@ -219,8 +219,8 @@ export default function Destination(props) {
                 <Typography>Email: {contact.email}</Typography>
                 <Typography>ID Number: {contact.idNumber}</Typography>
                 <Typography>Phone Number: {contact.phoneNumber}</Typography>
-                <Button onClick={() => deleteContact(index)}>
-                  Delete Receiver
+                <Button sx={{mt: 0.8}} onClick={() => deleteContact(index)} variant="contained" color="error">
+                  Delete
                 </Button>
               </Box>
             );

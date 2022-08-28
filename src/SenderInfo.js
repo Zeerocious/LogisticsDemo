@@ -1,7 +1,20 @@
 import { Box, TextField, Typography } from "@mui/material";
 import React from "react";
 
-export default function SenderInfo() {
+export default function SenderInfo(props) {
+  const {
+    senderInfo,
+    setSenderInfo
+  } = props
+  const{
+    firstName,
+    lastName, 
+    address,
+    address2,
+    email,
+    idNumber,
+    phoneNumber
+  } = senderInfo
   return (
     <Box
       sx={{
@@ -29,19 +42,81 @@ export default function SenderInfo() {
             display: "flex",
           }}
         >
-          <TextField sx={{ m: 1 }} required label="First Name" />
-          <TextField sx={{ m: 1 }} required label="Last Name" />
+          <TextField onChange={(e) => {
+                setSenderInfo((senderInfo) => ({
+                  ...senderInfo,
+                  firstName: e.target.value,
+                }));
+              }}
+              sx={{ m: 1 }}
+              required
+              label="First Name"
+              defaultValue={firstName} />
+          <TextField onChange={(e) => {
+                setSenderInfo((senderInfo) => ({
+                  ...senderInfo,
+                  lastName: e.target.value,
+                }));
+              }}
+              sx={{ m: 1 }}
+              required
+              label="Last Name"
+              defaultValue={lastName} />
         </Box>
-        <TextField sx={{ m: 1 }} required label="Address 1" />
-        <TextField sx={{ m: 1 }} label="Address 2 (Apt, Suite, Unit)" />
-        <TextField sx={{ m: 1 }} required label="Email" />
+        <TextField onChange={(e) => {
+                setSenderInfo((senderInfo) => ({
+                  ...senderInfo,
+                  address: e.target.value,
+                }));
+              }}
+              sx={{ m: 1 }}
+              required
+              label="Address 1"
+              defaultValue={address} />
+        <TextField onChange={(e) => {
+                setSenderInfo((senderInfo) => ({
+                  ...senderInfo,
+                  address2: e.target.value,
+                }));
+              }}
+              sx={{ m: 1 }}
+              label="Address 2"
+              defaultValue={address2} />
+        <TextField onChange={(e) => {
+                setSenderInfo((senderInfo) => ({
+                  ...senderInfo,
+                  email: e.target.value,
+                }));
+              }}
+              sx={{ m: 1 }}
+              required
+              label= "Email"
+              defaultValue={email} />
         <Box
           sx={{
             display: "flex",
           }}
         >
-          <TextField sx={{ m: 1 }} required label="ID Number" />
-          <TextField sx={{ m: 1 }} required label="Phone Number" />
+          <TextField onChange={(e) => {
+                setSenderInfo((senderInfo) => ({
+                  ...senderInfo,
+                  idNumber: e.target.value,
+                }));
+              }}
+              sx={{ m: 1 }}
+              required
+              label="ID Number"
+              defaultValue={idNumber} />
+          <TextField onChange={(e) => {
+                setSenderInfo((senderInfo) => ({
+                  ...senderInfo,
+                  phoneNumber: e.target.value,
+                }));
+              }}
+              sx={{ m: 1 }}
+              required
+              label="Phone Number"
+              defaultValue={phoneNumber} />
         </Box>
       </Box>
     </Box>
