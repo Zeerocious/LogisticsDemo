@@ -4,15 +4,24 @@ import SenderInfo from "./SenderInfo";
 import GoodsInfo from "./GoodsInfo";
 import Destination from "./Destination";
 import SimpleBar from "simplebar-react";
+import Agreement from "./Agreement";
+import Review from "./Review";
 
-const steps = ["Sender Info", "Destination", "Goods Info"];
+const steps = [
+  "Sender Info",
+  "Destination",
+  "Goods Info",
+  "Agreement",
+  "Review",
+];
 
 export default function Shipping() {
+  const [agree, setAgree] = React.useState(false);
+
   const [senderInfo, setSenderInfo] = useState({
     firstName: "",
     lastName: "",
     address: "",
-    address2: "",
     idNumber: "",
     email: "",
     phoneNumber: "",
@@ -23,7 +32,6 @@ export default function Shipping() {
     firstName: "",
     lastName: "",
     address: "",
-    address2: "",
     idNumber: "",
     email: "",
     phoneNumber: "",
@@ -46,6 +54,14 @@ export default function Shipping() {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+  const handleAgreementPage = () => {
+    handleNext();
+    setAgree(false);
+  };
+  const handleAgreementPageBack = () => {
+    handleBack();
+    setAgree(false);
   };
   return (
     <SimpleBar style={{ height: "100%", minHeight: 0 }}>
@@ -70,8 +86,7 @@ export default function Shipping() {
         {activeStep === 0 ? (
           <>
             <SenderInfo senderInfo={senderInfo} setSenderInfo={setSenderInfo} />
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2}}>
-
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 disabled={
                   senderInfo.firstName.length === 0 ||
@@ -86,7 +101,7 @@ export default function Shipping() {
                 onClick={handleNext}
                 color="primary"
               >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? "Submit" : "Next"}
               </Button>
             </Box>
           </>
@@ -102,7 +117,7 @@ export default function Shipping() {
               setContact={setContact}
               setContacts={setContacts}
             />
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2}}>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 color="primary"
                 disabled={activeStep === 0}
@@ -121,11 +136,11 @@ export default function Shipping() {
                 onClick={handleNext}
                 color="primary"
               >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? "Submit" : "Next"}
               </Button>
             </Box>
           </>
-        ) : (
+        ) : activeStep === 2 ? (
           <>
             <GoodsInfo
               good={good}
@@ -138,7 +153,6 @@ export default function Shipping() {
                 color="primary"
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                
                 sx={{ mr: 1 }}
               >
                 Back
@@ -146,13 +160,57 @@ export default function Shipping() {
 
               <Button
                 disabled={goods.length > 0 ? false : true}
-                onClick={handleNext}
+                onClick={handleAgreementPage}
                 color="primary"
               >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length - 1 ? "Submit" : "Next"}
               </Button>
             </Box>
           </>
+        ) : activeStep === 3 ? (
+          <>
+            <Agreement agree={agree} setAgree={setAgree} />
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Button
+                color="primary"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+
+              <Button disabled={!agree} onClick={handleNext} color="primary">
+                {activeStep === steps.length - 1 ? "Submit" : "Next"}
+              </Button>
+            </Box>
+          </>
+        ) : activeStep === 4 ? (
+          <>
+            <Review
+              senderInfo={senderInfo}
+              goods={goods}
+              contacts={contacts}
+              city={city}
+              state={state}
+            />
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Button
+                color="primary"
+                disabled={activeStep === 0}
+                onClick={handleAgreementPageBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+
+              <Button onClick={handleNext} color="primary">
+                {activeStep === steps.length - 1 ? "Submit" : "Next"}
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <></>
         )}
       </Box>
     </SimpleBar>

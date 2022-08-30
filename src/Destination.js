@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { Button, Box, TextField, Typography } from "@mui/material";
 import React from "react";
 
@@ -20,7 +19,6 @@ export default function Destination(props) {
       firstName,
       lastName,
       address,
-      address2,
       idNumber,
       email,
       phoneNumber,
@@ -37,11 +35,11 @@ export default function Destination(props) {
     if (!formValid) {
       return;
     }
+    const d = new Date();
     setContacts((contacts) => [
       ...contacts,
       {
-        id: uuidv4(),
-        address2,
+        id: d.valueOf(),
         firstName,
         lastName,
         address,
@@ -102,7 +100,7 @@ export default function Destination(props) {
             defaultValue={state}
           />
         </Box>
-        <Box sx={{display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography sx={{ m: 1 }} variant="h7">
             Add Receiver
           </Typography>
@@ -145,19 +143,8 @@ export default function Destination(props) {
             }
             sx={{ m: 1 }}
             required
-            label="Address 1"
+            label="Address"
             defaultValue={contact.address}
-          />
-          <TextField
-            onChange={(e) =>
-              setContact((contact) => ({
-                ...contact,
-                address2: e.target.value,
-              }))
-            }
-            sx={{ m: 1 }}
-            label="Address 2 (Apt, Suite, Unit)"
-            defaultValue={contact.address2}
           />
           <TextField
             onChange={(e) =>
@@ -201,25 +188,31 @@ export default function Destination(props) {
               defaultValue={contact.phoneNumber}
             />
           </Box>
-          <Button onClick={addContact} variant="contained" >Add Receiver</Button>
+          <Button onClick={addContact} variant="contained">
+            Add Receiver
+          </Button>
         </Box>
-        <Typography sx={{ mt:5, fontFamily: "roboto" }} variant="h5">
-          Receiver
+        <Typography sx={{ mt: 5, fontFamily: "roboto" }} variant="h5">
+          {contacts.length > 1 ? "Receivers" : "Receiver"}
         </Typography>
 
         <Box>
           {contacts.map((contact, index) => {
             return (
-              <Box key={contact.id} sx={{mt: 4}}>
+              <Box key={contact.id} sx={{ mt: 4 }}>
                 <Typography>
                   Name: {contact.firstName} {contact.lastName}
                 </Typography>
-                <Typography>Address 1: {contact.address}</Typography>
-                <Typography>Address 2: {contact.address2}</Typography>
+                <Typography>Address: {contact.address}</Typography>
                 <Typography>Email: {contact.email}</Typography>
                 <Typography>ID Number: {contact.idNumber}</Typography>
                 <Typography>Phone Number: {contact.phoneNumber}</Typography>
-                <Button sx={{mt: 0.8}} onClick={() => deleteContact(index)} variant="contained" color="error">
+                <Button
+                  sx={{ mt: 0.8 }}
+                  onClick={() => deleteContact(index)}
+                  variant="contained"
+                  color="error"
+                >
                   Delete
                 </Button>
               </Box>

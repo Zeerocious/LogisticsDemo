@@ -8,8 +8,13 @@ import "simplebar/dist/simplebar.min.css";
 
 let theme = createTheme({
   palette: {
+    white: {
+      main: "#777777"
+    },
+
     mode: "dark"
   }
+  
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

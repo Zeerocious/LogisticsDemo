@@ -1,14 +1,14 @@
-import { v4 as uuidv4 } from "uuid";
-import { InputAdornment, Button, Box, TextField, Typography } from "@mui/material";
+import {
+  InputAdornment,
+  Button,
+  Box,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 
 export default function Destination(props) {
-  const {
-    good,
-    setGood,
-    goods,
-    setGoods
-  } = props;
+  const { good, setGood, goods, setGoods } = props;
 
   const addGood = (e) => {
     e.preventDefault();
@@ -20,10 +20,11 @@ export default function Destination(props) {
     if (!formValid) {
       return;
     }
+    const d = new Date();
     setGoods((goods) => [
       ...goods,
       {
-        id: uuidv4(),
+        id: d.valueOf(),
         type,
         value,
         weight,
@@ -115,7 +116,7 @@ export default function Destination(props) {
           <Button onClick={addGood}>Add Item</Button>
         </Box>
         <Typography sx={{ m: 1 }} variant="h7">
-          Goods
+          {goods.length > 1 ? "Goods" : "Good"}
         </Typography>
         <Box>
           {goods.map((good, index) => {

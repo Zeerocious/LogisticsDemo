@@ -10,7 +10,6 @@ export default function SenderInfo(props) {
     firstName,
     lastName, 
     address,
-    address2,
     email,
     idNumber,
     phoneNumber
@@ -71,17 +70,8 @@ export default function SenderInfo(props) {
               }}
               sx={{ m: 1 }}
               required
-              label="Address 1"
+              label="Address"
               defaultValue={address} />
-        <TextField onChange={(e) => {
-                setSenderInfo((senderInfo) => ({
-                  ...senderInfo,
-                  address2: e.target.value,
-                }));
-              }}
-              sx={{ m: 1 }}
-              label="Address 2"
-              defaultValue={address2} />
         <TextField onChange={(e) => {
                 setSenderInfo((senderInfo) => ({
                   ...senderInfo,
