@@ -7,6 +7,7 @@ import SimpleBar from "simplebar-react";
 import Agreement from "./Agreement";
 import Review from "./Review";
 
+
 const steps = [
   "Sender Info",
   "Destination",

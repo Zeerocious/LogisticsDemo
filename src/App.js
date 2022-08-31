@@ -5,6 +5,7 @@ import Admin from "./Admin";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import Shipping from "./Shipping";
+import stuff from "./config/stuff.json";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
             element={
               <>
                 <Header />
-                <Admin />
+                <Admin ADMINCODE={stuff.ADMINCODE} />
               </>
             }
           />
