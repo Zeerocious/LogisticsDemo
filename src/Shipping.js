@@ -1,12 +1,21 @@
-import React, { useState } from "react";
-import { Button, Box, Stepper, Step, StepLabel } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+} from "@mui/material";
 import SenderInfo from "./SenderInfo";
 import GoodsInfo from "./GoodsInfo";
 import Destination from "./Destination";
 import SimpleBar from "simplebar-react";
 import Agreement from "./Agreement";
 import Review from "./Review";
-
+import axios from "axios";
+import stuff from "./config/stuff.json";
+import { v4 as uuidv4 } from "uuid";
 
 const steps = [
   "Sender Info",
@@ -18,22 +27,27 @@ const steps = [
 
 export default function Shipping() {
   const [agree, setAgree] = React.useState(false);
+  const [id, setID] = useState();
+  useEffect(() => {
+    setID(uuidv4());
+  }, []);
 
   const [senderInfo, setSenderInfo] = useState({
     firstName: "",
     lastName: "",
     address: "",
-    idNumber: "",
+    customerID: "",
     email: "",
     phoneNumber: "",
   });
+
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [contact, setContact] = useState({
     firstName: "",
     lastName: "",
     address: "",
-    idNumber: "",
+    customerID: "",
     email: "",
     phoneNumber: "",
   });
@@ -48,6 +62,32 @@ export default function Shipping() {
   const [goods, setGoods] = useState([]);
 
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const submitOrder = async () => {
+    handleNext()
+    await axios.post(stuff.CONNECTION_URL, {
+      id: id,
+      city: city,
+      state: state,
+    });
+    await axios.post(`${stuff.CONNECTION_URL}/tabs/Sender`, {
+      ...senderInfo,
+      orderID: id,
+    });
+    for (let item of goods) {
+      await axios.post(`${stuff.CONNECTION_URL}/tabs/Goods`, {
+        ...item,
+        orderID: id,
+      });
+    }
+    for (let receiver of contacts) {
+      await axios.post(`${stuff.CONNECTION_URL}/tabs/Receivers`, {
+        ...receiver,
+        orderID: id,
+      });
+    }
+    
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -92,7 +132,7 @@ export default function Shipping() {
                 disabled={
                   senderInfo.firstName.length === 0 ||
                   senderInfo.lastName.length === 0 ||
-                  senderInfo.idNumber.length === 0 ||
+                  senderInfo.customerID.length === 0 ||
                   senderInfo.email.length === 0 ||
                   senderInfo.address.length === 0 ||
                   !/^[(]{0,1}[0-9]{3}[)]{0,1}[-s.]{0,1}[0-9]{3}[-s.]{0,1}[0-9]{4}$/.test(
@@ -205,13 +245,39 @@ export default function Shipping() {
                 Back
               </Button>
 
-              <Button onClick={handleNext} color="primary">
+              <Button onClick={submitOrder} color="primary">
                 {activeStep === steps.length - 1 ? "Submit" : "Next"}
               </Button>
             </Box>
           </>
         ) : (
-          <></>
+          <>
+            <Typography sx={{ m: 2 }} variant="h4">
+              ORDER COMPLETED
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                maxWidth: 600,
+                p: 2,
+              }}
+            >
+              <Typography variant="h6"sx={{ mt: 3, fontWeight:"bold" }}>Order ID: {id}</Typography>
+              <Box sx={{ m: 1 }}>
+                {goods.map((good, index) => {
+                  return (
+                    <Box key={good.uid} sx={{ mt: 4 }}>
+                      <Typography sx={{ fontWeight:"bold" }}>Item Tracking #: {good.trackingID}</Typography>
+                      <Typography>Type: {good.type}</Typography>
+                      <Typography>Value: ${good.value}</Typography>
+                      <Typography>Weight: {good.weight} kg</Typography>
+                    </Box>
+                  );
+                })}
+              </Box>
+            </Box>
+          </>
         )}
       </Box>
     </SimpleBar>

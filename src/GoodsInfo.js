@@ -6,13 +6,14 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Destination(props) {
   const { good, setGood, goods, setGoods } = props;
 
   const addGood = (e) => {
     e.preventDefault();
-    const { type, value, weight } = good;
+    const { orderID, type, value, weight } = good;
     const formValid =
       type &&
       /^[0-9]*$/.test(weight) &&
@@ -24,10 +25,12 @@ export default function Destination(props) {
     setGoods((goods) => [
       ...goods,
       {
-        id: d.valueOf(),
+        uid: uuidv4(),
+        trackingID: d.valueOf(),
         type,
         value,
         weight,
+        orderID,
       },
     ]);
   };
@@ -113,15 +116,21 @@ export default function Destination(props) {
               defaultValue={good.weight}
             />
           </Box>
-          <Button onClick={addGood}>Add Item</Button>
+          <Button sx={{m:2}} component="label">
+            <input type="file" hidden />
+            Upload Pictures (2-5)
+          </Button>
+          <Button variant="contained" color="success" onClick={addGood}>
+            Add Item
+          </Button>
         </Box>
-        <Typography sx={{ m: 1 }} variant="h7">
+        <Typography sx={{ mt: 5, fontWeight: "medium" }} variant="h5">
           {goods.length > 1 ? "Goods" : "Good"}
         </Typography>
         <Box>
           {goods.map((good, index) => {
             return (
-              <Box key={good.id}>
+              <Box key={good.uid} sx={{ mt: 4 }}>
                 <Typography>Type: {good.type}</Typography>
                 <Typography>Value: ${good.value}</Typography>
                 <Typography>Weight: {good.weight} kg</Typography>

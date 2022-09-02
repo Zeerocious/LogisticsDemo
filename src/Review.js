@@ -89,7 +89,7 @@ export default function Review(props) {
             sx={{ m: 1 }}
             id="outlined-read-only-input"
             label="ID Number"
-            defaultValue={senderInfo.idNumber}
+            defaultValue={senderInfo.customerID}
             InputProps={{
               readOnly: true,
             }}
@@ -139,32 +139,32 @@ export default function Review(props) {
             }}
           />
         </Box>
-        <Typography sx={{ m: 1, mt: 2}} variant="h6">
+        <Typography sx={{ mt: 2, fontWeight: "medium"}} variant="h6">
           {contacts.length > 1 ? "Receivers" : "Receiver"}
         </Typography>
 
         <Box sx={{ m:1}}>
           {contacts.map((contact, index) => {
             return (
-              <Box key={contact.id} sx={{ mt: 2 }}>
+              <Box key={contact.uid} sx={{ mt: 2 }}>
                 <Typography>
                   Name: {contact.firstName} {contact.lastName}
                 </Typography>
                 <Typography>Address: {contact.address}</Typography>
                 <Typography>Email: {contact.email}</Typography>
-                <Typography>ID Number: {contact.idNumber}</Typography>
+                <Typography>ID Number: {contact.customerID}</Typography>
                 <Typography>Phone Number: {contact.phoneNumber}</Typography>
               </Box>
             );
           })}
         </Box>
-        <Typography sx={{ m: 1, mt: 2 }} variant="h6">
+        <Typography sx={{ mt: 2, fontWeight: "medium"}} variant="h6">
             {goods.length > 1 ? "Goods" : "Good"}
         </Typography>
         <Box sx={{ m:1}}>
           {goods.map((good, index) => {
             return (
-              <Box key={good.id}>
+              <Box key={good.uid} sx={{ mt: 2 }}>
                 <Typography>Type: {good.type}</Typography>
                 <Typography>Value: ${good.value}</Typography>
                 <Typography>Weight: {good.weight} kg</Typography>

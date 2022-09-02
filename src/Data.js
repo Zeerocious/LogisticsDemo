@@ -19,15 +19,15 @@ export default function Data() {
           display: "flex",
           width: 800,
           height: 500,
-          m:3,
+          m: 3,
         }}
       >
         <iframe
-        style={{border:"none"}}
+          style={{ border: "none" }}
           title="Logistic Demo"
           width="100%"
           height="100%"
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR6pFGBujiJ8WPZILvAQEW7RrvRRo9JwlNkt-SvflOixiwvQuYt_l1Ms45Xkn49u08U5N8pKELi9_Y6/pubhtml?widget=true&amp;headers=false"
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRg0NXhBIbIr7gyIk1HO53LYVzu-K7f9-4ziO-TegSX8Un2m0Xpm2nY5xYdTNJc7iY72uUlWKBbYVRF/pubhtml?widget=true&amp;headers=false"
         ></iframe>
       </Box>
     </Box>

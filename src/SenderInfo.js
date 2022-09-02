@@ -1,9 +1,9 @@
-import { Button, FormControl, Box, TextField, Typography } from "@mui/material";
+import { Button, Box, TextField, Typography } from "@mui/material";
 import React from "react";
 
 export default function SenderInfo(props) {
   const { senderInfo, setSenderInfo } = props;
-  const { firstName, lastName, address, email, idNumber, phoneNumber } =
+  const { firstName, lastName, address, email, customerID, phoneNumber } =
     senderInfo;
   return (
     <Box
@@ -16,109 +16,108 @@ export default function SenderInfo(props) {
         width: "100%",
       }}
     >
-      <FormControl id="test" name="test">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: 500,
+          p: 2,
+        }}
+      >
+        <Typography sx={{ m: 1 }} variant="h5">
+          SENDER INFO
+        </Typography>
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            maxWidth: 500,
-            p: 2,
           }}
         >
-          <Typography sx={{ m: 1 }} variant="h5">
-            SENDER INFO
-          </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-            }}
-          >
-            <TextField
-              onChange={(e) => {
-                setSenderInfo((senderInfo) => ({
-                  ...senderInfo,
-                  firstName: e.target.value,
-                }));
-              }}
-              sx={{ m: 1 }}
-              required
-              label="First Name"
-              defaultValue={firstName}
-            />
-            <TextField
-              onChange={(e) => {
-                setSenderInfo((senderInfo) => ({
-                  ...senderInfo,
-                  lastName: e.target.value,
-                }));
-              }}
-              sx={{ m: 1 }}
-              required
-              label="Last Name"
-              defaultValue={lastName}
-            />
-          </Box>
           <TextField
+            name="firstName"
             onChange={(e) => {
               setSenderInfo((senderInfo) => ({
                 ...senderInfo,
-                address: e.target.value,
+                firstName: e.target.value,
               }));
             }}
             sx={{ m: 1 }}
             required
-            label="Address"
-            defaultValue={address}
+            label="First Name"
+            defaultValue={firstName}
           />
           <TextField
+            name="lastName"
             onChange={(e) => {
               setSenderInfo((senderInfo) => ({
                 ...senderInfo,
-                email: e.target.value,
+                lastName: e.target.value,
               }));
             }}
             sx={{ m: 1 }}
             required
-            label="Email"
-            defaultValue={email}
+            label="Last Name"
+            defaultValue={lastName}
           />
-          <Box
-            sx={{
-              display: "flex",
-            }}
-          >
-            <TextField
-              onChange={(e) => {
-                setSenderInfo((senderInfo) => ({
-                  ...senderInfo,
-                  idNumber: e.target.value,
-                }));
-              }}
-              sx={{ m: 1 }}
-              required
-              label="ID Number"
-              defaultValue={idNumber}
-            />
-            <TextField
-              onChange={(e) => {
-                setSenderInfo((senderInfo) => ({
-                  ...senderInfo,
-                  phoneNumber: e.target.value,
-                }));
-              }}
-              sx={{ m: 1 }}
-              required
-              label="Phone Number"
-              defaultValue={phoneNumber}
-            />
-          </Box>
         </Box>
-        <Button sx={{ maxWidth: 200 }} variant="contained" component="label">
-          Upload File
-          <input type="file" hidden />
-        </Button>
-      </FormControl>
+        <TextField
+          onChange={(e) => {
+            setSenderInfo((senderInfo) => ({
+              ...senderInfo,
+              address: e.target.value,
+            }));
+          }}
+          sx={{ m: 1 }}
+          required
+          label="Address"
+          defaultValue={address}
+        />
+        <TextField
+          onChange={(e) => {
+            setSenderInfo((senderInfo) => ({
+              ...senderInfo,
+              email: e.target.value,
+            }));
+          }}
+          sx={{ m: 1 }}
+          required
+          label="Email"
+          defaultValue={email}
+        />
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
+          <TextField
+            onChange={(e) => {
+              setSenderInfo((senderInfo) => ({
+                ...senderInfo,
+                customerID: e.target.value,
+              }));
+            }}
+            sx={{ m: 1 }}
+            required
+            label="ID Number"
+            defaultValue={customerID}
+          />
+          <TextField
+            onChange={(e) => {
+              setSenderInfo((senderInfo) => ({
+                ...senderInfo,
+                phoneNumber: e.target.value,
+              }));
+            }}
+            sx={{ m: 1 }}
+            required
+            label="Phone Number"
+            defaultValue={phoneNumber}
+          />
+        </Box>
+      </Box>
+      <Button sx={{ maxWidth: 200 }} component="label">
+        Upload ID*
+        <input type="file" hidden />
+      </Button>
     </Box>
   );
 }

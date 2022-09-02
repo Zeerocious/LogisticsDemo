@@ -1,5 +1,6 @@
 import { Button, Box, TextField, Typography } from "@mui/material";
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Destination(props) {
   const {
@@ -19,14 +20,15 @@ export default function Destination(props) {
       firstName,
       lastName,
       address,
-      idNumber,
+      customerID,
       email,
       phoneNumber,
+      orderID,
     } = contact;
     const formValid =
       firstName &&
       lastName &&
-      idNumber &&
+      customerID &&
       email &&
       address &&
       /^[(]{0,1}[0-9]{3}[)]{0,1}[-s.]{0,1}[0-9]{3}[-s.]{0,1}[0-9]{4}$/.test(
@@ -35,17 +37,17 @@ export default function Destination(props) {
     if (!formValid) {
       return;
     }
-    const d = new Date();
     setContacts((contacts) => [
       ...contacts,
       {
-        id: d.valueOf(),
+        uid: uuidv4(),
         firstName,
         lastName,
         address,
-        idNumber,
+        customerID,
         email,
         phoneNumber,
+        orderID,
       },
     ]);
   };
@@ -167,13 +169,13 @@ export default function Destination(props) {
               onChange={(e) =>
                 setContact((contact) => ({
                   ...contact,
-                  idNumber: e.target.value,
+                  customerID: e.target.value,
                 }))
               }
               sx={{ m: 1 }}
               required
               label="ID Number"
-              defaultValue={contact.idNumber}
+              defaultValue={contact.customerID}
             />
             <TextField
               onChange={(e) =>
@@ -188,24 +190,33 @@ export default function Destination(props) {
               defaultValue={contact.phoneNumber}
             />
           </Box>
-          <Button onClick={addContact} variant="contained">
+          <Box sx={{ display: "flex", justifyContent:"center", m: 3}}>
+            <Button
+              sx={{ maxWidth: 150 }}
+              component="label"
+            >
+              Upload ID*
+              <input type="file" hidden />
+            </Button>
+          </Box>
+          <Button color="success" onClick={addContact} variant="contained">
             Add Receiver
           </Button>
         </Box>
-        <Typography sx={{ mt: 5, fontFamily: "roboto" }} variant="h5">
+        <Typography sx={{ mt: 5, fontWeight: "medium" }} variant="h5">
           {contacts.length > 1 ? "Receivers" : "Receiver"}
         </Typography>
 
         <Box>
           {contacts.map((contact, index) => {
             return (
-              <Box key={contact.id} sx={{ mt: 4 }}>
+              <Box key={contact.uid} sx={{ mt: 4 }}>
                 <Typography>
                   Name: {contact.firstName} {contact.lastName}
                 </Typography>
                 <Typography>Address: {contact.address}</Typography>
                 <Typography>Email: {contact.email}</Typography>
-                <Typography>ID Number: {contact.idNumber}</Typography>
+                <Typography>ID Number: {contact.customerID}</Typography>
                 <Typography>Phone Number: {contact.phoneNumber}</Typography>
                 <Button
                   sx={{ mt: 0.8 }}
